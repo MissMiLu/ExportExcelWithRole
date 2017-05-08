@@ -3,6 +3,7 @@
 <script type="text/javascript">
 	var $dg;
 	var $tree;
+	var $colors_value
 	$(function() {
 		$("#tt").tabs({
 			border:false,
@@ -38,23 +39,7 @@
 		 		}
 		 	}
 		});
-		 $dg = $("#dg");
-		 $grid=$dg.datagrid({
-             url : "spu/spuAction!findColors.action",
-             width : 'auto',
-             height : $(this).height()-85,
-             pagination:true,
-             rownumbers:true,
-             border:true,
-             striped:true,
-             singleSelect:false,
-             selectOnCheck:true,
-             columns : [ [
-                 {field : 'ck',checkbox : true,width : parseInt($(this).width()*0.1)},
-                 {field : 'name',title : '颜色',width : parseInt($(this).width()*0.1)}
-             ] ]
-		});
-		
+
 		$("#classId").combobox({
 			width:171,
 			url:"systemCode/systemCodeAction!findSystemCodeByType.action?codeMyid=customerClass",
@@ -171,7 +156,7 @@
 		return flag;
 	}
 	//弹窗增加区域
-	function addAreaOpenDlg() {
+	function selectColorDlg() {
 		$("<div/>").dialog({
 			href : "jsp/skuManager/colorEditDlg.jsp",
 			width : 600,
@@ -193,7 +178,8 @@
                             break;
                         }
                     }
-
+					$('#size').attr("value",colors);
+                    $(this).closest('.window-body').dialog('destroy');
                 }
 			},{
 				text : '取消',
@@ -207,6 +193,43 @@
 			}
 		});
 	}
+    function editSizeDlg() {
+        $("<div/>").dialog({
+            href : "jsp/skuManager/sizeEditDlg.jsp",
+            width : 600,
+            height : 400,
+            modal : true,
+            title : '选择区域',
+            buttons : [ {
+                text : '选择',
+                iconCls : 'icon-add',
+                handler : function() {
+                    var row = $('#dg').datagrid('getSelections');
+                    var i = 0;
+                    var sizes = "";
+                    for(i;i<row.length;i++){
+                        sizes += row[i].name;
+                        if(i < row.length-1){
+                            sizes += ',';
+                        }else{
+                            break;
+                        }
+                    }
+                    $('#colors').attr("value",sizes);
+                    $(this).closest('.window-body').dialog('destroy');
+                }
+            },{
+                text : '取消',
+                iconCls : 'icon-cancel',
+                handler : function() {
+                    $(this).closest('.window-body').dialog('destroy');
+                }
+            }],
+            onClose : function() {
+                $(this).dialog('destroy');
+            }
+        });
+    }
 </script>
 <style>
 	.easyui-textbox{
@@ -302,7 +325,7 @@
 								 </tr>
 								  <tr>
 									<th>颜色列表</th>
-									<td><input id="colors" name="colors" type="text" class="easyui-textbox easyui-validatebox"/><img src="extend/area.png" style="margin-left:2px;margin-bottom: -5px;cursor: pointer;" onclick="addAreaOpenDlg();"/></td>
+									<td><input id="colors" name="colors" type="text" class="easyui-textbox easyui-validatebox"/><img src="extend/area.png" style="margin-left:2px;margin-bottom: -5px;cursor: pointer;" onclick="selectColorDlg();"/></td>
 									<th>尺码列表</th>
 									<td><input id="size" name="size" type="text" class="easyui-textbox easyui-validatebox"/></td>
 									 <th>业务开发员</th>

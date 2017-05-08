@@ -28,7 +28,7 @@ public class Spu implements java.io.Serializable
 	private String developer;
 	private String enquirer;
 	private String buyer;
-	private Date created;
+	//private Date created;
 	private Date lastmod;
 	private Integer creater;
 	private Integer modifiyer;
@@ -47,7 +47,7 @@ public class Spu implements java.io.Serializable
 	}
 
 	public Spu(Integer spuId, String name, String myid, String distChName, String distEnName, String colors, String size,
-			   Double latestCost, Double weight, String developer, String enquirer, String buyer, Date created, Date lastmod, Integer creater, Integer modifiyer) {
+			   Double latestCost, Double weight, String developer, String enquirer, String buyer,  Date lastmod, Integer creater, Integer modifiyer) {
 		this.spuId = spuId;
 		this.name = name;
 		this.myid = myid;
@@ -60,7 +60,7 @@ public class Spu implements java.io.Serializable
 		this.developer = developer;
 		this.enquirer = enquirer;
 		this.buyer = buyer;
-		this.created = created;
+		//this.created = created;
 		this.lastmod = lastmod;
 		this.creater = creater;
 		this.modifiyer = modifiyer;
@@ -176,18 +176,18 @@ public class Spu implements java.io.Serializable
 		this.buyer = buyer;
 	}
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "CREATED", length = 10)
-	public Date getCreated() {
-		return created;
-	}
+//	@Temporal(TemporalType.TIMESTAMP)
+//	@Column(name = "CREATED")
+//	public Date getCreated() {
+//		return created;
+//	}
+//
+//	public void setCreated(Date created) {
+//		this.created = created;
+//	}
 
-	public void setCreated(Date created) {
-		this.created = created;
-	}
-
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "LASTMOD", length = 10)
+	@Column(name = "LASTMOD")
 	public Date getLastmod() {
 		return lastmod;
 	}
