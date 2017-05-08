@@ -9,8 +9,10 @@ import com.palmelf.erp.util.Constants;
 import com.palmelf.erp.util.PageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 @SuppressWarnings("unchecked")
 @Service("spuService")
@@ -35,7 +37,7 @@ public class SpuServiceImpl implements SpuService
 	* @return
 	* @see com.palmelf.erp.service.CstService#findCustomerList(java.util.Map, com.palmelf.erp.util.PageUtil)
 	*/
-	public List<Spu> findSpu(Map<String, Object> param,PageUtil pageUtil)
+	public List<Spu> findSpu(Map<String, Object> param, PageUtil pageUtil)
 	{
 		String hql="from Spu t ";
 		hql+=Constants.getSearchConditionsHQL("t", param);
@@ -88,7 +90,7 @@ public class SpuServiceImpl implements SpuService
 		Integer userId=Constants.getCurrendUser().getUserId();
 		if (spu.getSpuId()==null||"".equals(spu.getSpuId()))
 		{
-			spu.setCreated(new Date());
+			//spu.setCreated(new Date());
 			spu.setLastmod(new Date());
 			spu.setCreater(userId);
 			spu.setModifiyer(userId);

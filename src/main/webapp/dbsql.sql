@@ -2268,7 +2268,6 @@ INSERT INTO `WAREHOUSE` VALUES ('1', '物流仓', '12', '1', '1', '1', '1', '1',
 DROP TABLE IF EXISTS `SPU`;
 CREATE TABLE `SPU` (
   `SPU_ID` int(11) NOT NULL AUTO_INCREMENT COMMENT 'spu编码',
-  `CREATED` date DEFAULT NULL COMMENT '创造时间',
   `LASTMOD` date DEFAULT NULL COMMENT '最后修改时间',
   `NAME` varchar(100) DEFAULT NULL COMMENT '商品名称',
   `CREATER` int(10) DEFAULT NULL COMMENT '创建人',
@@ -2285,3 +2284,9 @@ CREATE TABLE `SPU` (
   `BUYER` varchar(100) DEFAULT NULL COMMENT '采购员',
   PRIMARY KEY (`SPU_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='spu';
+
+-- ----------------------------
+-- Records of SPU
+-- ----------------------------
+INSERT INTO `SPU` VALUES ('1', '2013-07-01', '蓝牙耳机', '1', '1', 'T8000', '蓝牙耳机黑色', 'bluetooth air phone black','black,blue,red',
+'X,L,M','54.2','0.34','业务员01','询价员01','采购员01');
