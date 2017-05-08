@@ -1,7 +1,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <script type="text/javascript">
-    $("#dg").datagrid({
-        url : "spu/spuAction!findColors.action",
+    $("#sizeDlg").datagrid({
+        url : "spu/spuAction!findSizes.action",
         width : 'auto',
         height : $(this).height()-85,
         pagination:true,
@@ -12,9 +12,21 @@
         selectOnCheck:true,
         columns : [ [
             {field : 'ck',checkbox : true,width : parseInt($(this).width()*0.1)},
-            {field : 'name',title : '颜色',width : parseInt($(this).width()*0.1)}
+            {field : 'value',title : '尺寸',width : parseInt($(this).width()*0.1)}
         ] ]
     });
+//        $('#sb').switchbutton({
+//            checked: true,
+//            onText: 'Regular',
+//            offText: 'Custom',
+//            onChange: function(checked){
+//                if (checked)
+//
+//                    $("#sizeDlg").hide();
+//                else
+//                    $("#sizeDlg").show();
+//            }
+//        })
 </script>
 <style>
 	.easyui-textbox{
@@ -69,6 +81,7 @@
 </style>
 <div class="easyui-layout" data-options="fit:true,border:false">
 	<div data-options="region:'center',border:false" title="" style="overflow: hidden;padding: 10px;">
-		<table id="dg" title="选择颜色"></table>
+		<%--<input id="sb">--%>
+		<table id="sizeDlg" title="选择尺寸"></table>
 	</div>
 </div>

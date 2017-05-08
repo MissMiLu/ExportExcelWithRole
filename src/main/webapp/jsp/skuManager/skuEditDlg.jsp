@@ -167,7 +167,7 @@
 				text : '选择',
 				iconCls : 'icon-add',
 				handler : function() {
-                    var row = $('#dg').datagrid('getSelections');
+                    var row = $('#colorDlg').datagrid('getSelections');
                     var i = 0;
                     var colors = "";
                     for(i;i<row.length;i++){
@@ -178,7 +178,7 @@
                             break;
                         }
                     }
-					$('#size').attr("value",colors);
+					$('#colors').attr("value",colors);
                     $(this).closest('.window-body').dialog('destroy');
                 }
 			},{
@@ -204,18 +204,18 @@
                 text : '选择',
                 iconCls : 'icon-add',
                 handler : function() {
-                    var row = $('#dg').datagrid('getSelections');
+                    var row = $('#sizeDlg').datagrid('getSelections');
                     var i = 0;
                     var sizes = "";
                     for(i;i<row.length;i++){
-                        sizes += row[i].name;
+                        sizes += row[i].value;
                         if(i < row.length-1){
                             sizes += ',';
                         }else{
                             break;
                         }
                     }
-                    $('#colors').attr("value",sizes);
+                    $('#size').attr("value",sizes);
                     $(this).closest('.window-body').dialog('destroy');
                 }
             },{
@@ -327,7 +327,7 @@
 									<th>颜色列表</th>
 									<td><input id="colors" name="colors" type="text" class="easyui-textbox easyui-validatebox"/><img src="extend/area.png" style="margin-left:2px;margin-bottom: -5px;cursor: pointer;" onclick="selectColorDlg();"/></td>
 									<th>尺码列表</th>
-									<td><input id="size" name="size" type="text" class="easyui-textbox easyui-validatebox"/></td>
+									<td><input id="size" name="size" type="text" class="easyui-textbox easyui-validatebox"/><img src="extend/area.png" style="margin-left:2px;margin-bottom: -5px;cursor: pointer;" onclick="editSizeDlg();"/></td>
 									 <th>业务开发员</th>
 									<td><input id="developer" name="developer" type="text" class="easyui-textbox easyui-validatebox"/></td>
 								 </tr>
