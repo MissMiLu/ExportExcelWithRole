@@ -113,7 +113,7 @@ margin-left: 88px;
 					</div>
 					<div class="loginButton">
 						<div style="float: left; margin-left: -9px;">
-							<input type="checkbox" id="on_off" name="remember" checked="ture" class="on_off_checkbox" value="0" /> <span class="f_help">是否记住用户名?</span>
+							<input type="checkbox" id="on_off" name="remember" checked="true" class="on_off_checkbox" value="0" /> <span class="f_help">是否记住用户名?</span>
 						</div>
 						<div style="float: right; padding: 3px 0; margin-right: -12px;">
 							<div>

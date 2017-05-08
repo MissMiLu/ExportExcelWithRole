@@ -1,6 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <script type="text/javascript">
-    $("#dg").datagrid({
+    $("#colorDlg").datagrid({
         url : "spu/spuAction!findColors.action",
         width : 'auto',
         height : $(this).height()-85,
@@ -69,6 +69,6 @@
 </style>
 <div class="easyui-layout" data-options="fit:true,border:false">
 	<div data-options="region:'center',border:false" title="" style="overflow: hidden;padding: 10px;">
-		<table id="dg" title="选择颜色"></table>
+		<table id="colorDlg" title="选择颜色"></table>
 	</div>
 </div>

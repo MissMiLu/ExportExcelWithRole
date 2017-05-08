@@ -3,10 +3,7 @@ package com.palmelf.erp.serviceImpl;
 import com.palmelf.erp.dao.PublicDao;
 import com.palmelf.erp.model.*;
 import com.palmelf.erp.service.SpuService;
-import com.palmelf.erp.util.Color;
-import com.palmelf.erp.util.ColorClass;
-import com.palmelf.erp.util.Constants;
-import com.palmelf.erp.util.PageUtil;
+import com.palmelf.erp.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
@@ -132,5 +129,14 @@ public class SpuServiceImpl implements SpuService
 			colors.add(new ColorClass(color.getName(),color.getSimplified()));
 		}
 		return colors;
+	}
+
+	public List<SizeClass> findSizeList()
+	{
+		List<SizeClass> sizes = new ArrayList<SizeClass>();
+		for (Size size : Size.values()){
+			sizes.add(new SizeClass(size.getValue()));
+		}
+		return sizes;
 	}
 }

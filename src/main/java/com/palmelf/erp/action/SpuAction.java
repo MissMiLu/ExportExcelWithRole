@@ -148,11 +148,11 @@ public class SpuAction extends BaseAction implements ModelDriven<Spu>
 	}
 
 	/**
-	* 函数功能说明 TODO:获取所有销售代表
+	* 函数功能说明
 	* Administrator修改者名字
 	* 2013-6-24修改日期
 	* 修改内容
-	* @Title: findSaleNameList
+	* @Title: findColorList
 	* @Description:
 	* @param @return
 	* @param @throws Exception    设定文件
@@ -165,22 +165,10 @@ public class SpuAction extends BaseAction implements ModelDriven<Spu>
 		return null;
 	}
 
-//	public void OutputJson(List<Color> colorList) {
-//		PrintWriter out = null;
-//		HttpServletResponse httpServletResponse = ServletActionContext
-//				.getResponse();
-//		httpServletResponse.setContentType("application/json");
-//		httpServletResponse.setCharacterEncoding("utf-8");
-//		String json = null;
-//		try {
-//			out = httpServletResponse.getWriter();
-//			json = JSON.toJSONString(colorList);
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//		logger.debug("json:" + json);
-//		out.print(json);
-//		out.close();
-//	}
+	public String findSizes() throws Exception
+	{
+		OutputJson(spuService.findSizeList());
+		return null;
+	}
 
 }

@@ -6,6 +6,7 @@ import com.palmelf.erp.model.Spu;
 import com.palmelf.erp.util.Color;
 import com.palmelf.erp.util.ColorClass;
 import com.palmelf.erp.util.PageUtil;
+import com.palmelf.erp.util.SizeClass;
 import com.palmelf.erp.viewModel.TreeModel;
 
 import java.util.Arrays;
@@ -26,5 +27,7 @@ public interface SpuService
 	List<Customer> findSpuNoPage(Map<String, Object> param, PageUtil pageUtil);
 
 	List<ColorClass> findColorList();
+
+	List<SizeClass> findSizeList();
 
 }
