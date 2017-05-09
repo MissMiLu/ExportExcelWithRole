@@ -2290,3 +2290,28 @@ CREATE TABLE `SPU` (
 -- ----------------------------
 INSERT INTO `SPU` VALUES ('1', '2013-07-01', '蓝牙耳机', '1', '1', 'T8000', '蓝牙耳机黑色', 'bluetooth air phone black','black,blue,red',
 'X,L,M','54.2','0.34','业务员01','询价员01','采购员01');
+
+
+-- ----------------------------
+-- Table structure for `SKU`
+-- ----------------------------
+DROP TABLE IF EXISTS `SKU`;
+CREATE TABLE `SKU` (
+  `SKU_ID` int(11) NOT NULL AUTO_INCREMENT COMMENT 'sku id',
+  `SPU_ID` int(11) NOT NULL COMMENT 'spu id',
+  `LASTMOD` datetime DEFAULT NULL COMMENT '最后修改时间',
+  `NAME` varchar(100) DEFAULT NULL COMMENT '商品名称',
+  `CREATER` int(10) DEFAULT NULL COMMENT '创建人',
+  `MODIFYER` int(10) DEFAULT NULL COMMENT '修改人',
+  `MYID` varchar(100) DEFAULT NULL COMMENT 'sku标识码',
+  `DISTCHNAME` varchar(200) DEFAULT NULL COMMENT '中文配货名称',
+  `DISTENNAME` varchar(200) DEFAULT NULL COMMENT '英文配货名称',
+  `COLOR` varchar(400) DEFAULT NULL COMMENT '颜色',
+  `SIZE` varchar(400) DEFAULT NULL COMMENT '尺码',
+  `LATESTCOST` double DEFAULT NULL COMMENT '最新报价',
+  `WEIGHT` double DEFAULT NULL COMMENT '重量',
+  `DEVELOPER` varchar(100) DEFAULT NULL COMMENT '业务开发员',
+  `ENQUIRER` varchar(100) DEFAULT NULL COMMENT '询价员',
+  `BUYER` varchar(100) DEFAULT NULL COMMENT '采购员',
+  PRIMARY KEY (`SKU_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='sku';

@@ -32,4 +32,12 @@ public enum Color {
     public void setSimplified(String simplified) {
         this.simplified = simplified;
     }
+
+    public static String getSimByName(String name){
+        for(Color color : Color.values()){
+            if (color.getName().equals(name))
+                return color.getSimplified();
+        }
+        return null;
+    }
 }

@@ -2,6 +2,7 @@ package com.palmelf.erp.service;
 
 import com.palmelf.erp.model.Customer;
 import com.palmelf.erp.model.CustomerContact;
+import com.palmelf.erp.model.Sku;
 import com.palmelf.erp.model.Spu;
 import com.palmelf.erp.util.Color;
 import com.palmelf.erp.util.ColorClass;
@@ -20,11 +21,13 @@ public interface SpuService
 
 	Long getCount(Map<String, Object> param, PageUtil pageUtil);
 
+	public List<Sku> findSkuBySpu(Integer spuId);
+
 	boolean persistenceSpu(Spu spu);
 
 	boolean delSpu(Integer spuId);
 
-	List<Customer> findSpuNoPage(Map<String, Object> param, PageUtil pageUtil);
+	List<Spu> findSpuNoPage(Map<String, Object> param, PageUtil pageUtil);
 
 	List<ColorClass> findColorList();
 

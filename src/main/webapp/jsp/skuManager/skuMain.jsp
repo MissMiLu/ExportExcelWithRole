@@ -9,7 +9,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
   <head>
     <base href="<%=basePath%>">
-    <title>客户管理</title>
+    <title>SPU管理</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -23,6 +23,38 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             $dg = $("#dg");
             $grid=$dg.datagrid({
                 url : "spu/spuAction!findSpuList.action",
+                view: detailview,
+                detailFormatter:function(index,row){
+                    return "<div class='ddv' style='padding:5px 0'></div>";
+                },
+                onExpandRow: function(index,row) {
+                    var ddv = $(this).datagrid('getRowDetail', index).find('div.ddv');
+                    ddv.datagrid({
+                        url : "spu/spuAction!findSkuBySpu.action?spuId=" + row.spuId,
+                        fitColumns:true,
+                        singleSelect:true,
+                        rownumbers:true,
+                        loadMsg:'',
+                        height:'auto',
+                        width : 'auto',
+                        columns:[[
+                            {field:'myid',title:'sku标识',width : 80},
+                            {field:'color',title:'颜色',width : 80},
+                            {field:'size',title:'尺寸',width : 80},
+					        {field:'weight',title:'重量',width : 80},
+					        {field:'latestCost',title:'最新报价',width : 80}
+                        ]],
+                        onResize:function(){
+                            $('#dg').datagrid('fixDetailRowHeight',index);
+                        },
+                        onLoadSuccess:function(){
+                            setTimeout(function(){
+                                $('#dg').datagrid('fixDetailRowHeight',index);
+                            },0);
+                        }
+                    });
+                    $dg.datagrid('fixDetailRowHeight',index);
+                },
                 width : 'auto',
                 height : $(this).height()-85,
                 pagination:true,
