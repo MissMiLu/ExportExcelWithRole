@@ -103,6 +103,15 @@ public class SpuAction extends BaseAction implements ModelDriven<Spu>
 		return null;
 	}
 
+	public String findSkuBySpu() throws Exception
+	{
+		GridModel gridModel=new GridModel();
+		gridModel.setRows(spuService.findSkuBySpu(getModel().getSpuId()));
+		gridModel.setTotal(null);
+		OutputJson(gridModel);
+		return null;
+	}
+
 	/**
 	* 函数功能说明
 	* Administrator修改者名字
@@ -124,10 +133,9 @@ public class SpuAction extends BaseAction implements ModelDriven<Spu>
 	/**
 	* 函数功能说明
 	* Administrator修改者名字
-	* 2013-6-26修改日期
 	* 修改内容
-	* @Title: delCustomer
-	* @Description: TODO:删除客户
+	* @Title: delSpu
+	* @Description:
 	* @param @return
 	* @param @throws Exception    设定文件
 	* @return String    返回类型
@@ -138,6 +146,7 @@ public class SpuAction extends BaseAction implements ModelDriven<Spu>
 		OutputJson(getMessage(spuService.delSpu(getModel().getSpuId())));
 		return null;
 	}
+
 	public Spu getModel()
 	{
 		if (null == spu)

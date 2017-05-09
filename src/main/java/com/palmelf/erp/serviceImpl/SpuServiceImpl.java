@@ -50,12 +50,18 @@ public class SpuServiceImpl implements SpuService
 	* @return
 	* @see com.palmelf.erp.service.CstService#findCustomerListNoPage(java.util.Map, com.palmelf.erp.util.PageUtil)
 	*/
-	public List<Customer> findSpuNoPage(Map<String, Object> param,PageUtil pageUtil)
+	public List<Spu> findSpuNoPage(Map<String, Object> param,PageUtil pageUtil)
 	{
 		String hql="from Spu t ";
 		hql+=Constants.getSearchConditionsHQL("t", param);
 		hql+=Constants.getGradeSearchConditionsHQL("t", pageUtil);
 		return publicDao.find(hql, param);
+	}
+
+	public List<Sku> findSkuBySpu(Integer spuId)
+	{
+		String hql="from Sku t where t.spuId="+ spuId;
+		 return publicDao.find(hql);
 	}
 
 	/* (非 Javadoc)
@@ -92,10 +98,26 @@ public class SpuServiceImpl implements SpuService
 			spu.setCreater(userId);
 			spu.setModifiyer(userId);
 			publicDao.save(spu);
+
 		}else {
 			spu.setLastmod(new Date());
 			spu.setModifiyer(userId);
 			publicDao.update(spu);
+			String hql="from Sku t where t.spuId="+spu.getSpuId();
+			List<Sku> list = publicDao.find(hql);
+			for(Sku sku : list){
+				sku.setLastmod(new Date());
+				sku.setModifiyer(userId);
+				publicDao.delete(sku);
+			}
+		}
+		for (String colorname : spu.getColors().split(",")){
+			for(String size : spu.getSize().split(",")){
+				String colorSim = Color.getSimByName(colorname);
+				Sku sku = new Sku(spu.getSpuId(),spu.getName(), spu.getMyid()+ "-" + colorSim + "-" + size, spu.getDistChName(), spu.getDistEnName(), colorname, size,
+						spu.getLatestCost(), spu.getWeight(), spu.getDeveloper(), spu.getEnquirer(), spu.getBuyer(), new Date(), userId, userId);
+				publicDao.save(sku);
+			}
 		}
 		return true;
 	}
@@ -114,6 +136,11 @@ public class SpuServiceImpl implements SpuService
 		spu.setLastmod(new Date());
 		spu.setModifiyer(userId);
 		publicDao.delete(spu);
+		String hql="from Sku t where t.spuId="+spu.getSpuId();
+		List<Sku> list = publicDao.find(hql);
+		for(Sku sku : list){
+			publicDao.delete(sku);
+		}
 		return true;
 	}
 	/* (非 Javadoc)
