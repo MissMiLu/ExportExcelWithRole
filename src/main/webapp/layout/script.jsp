@@ -18,7 +18,8 @@
 	<link rel="stylesheet" type="text/css" href="themes/icon.css">
 	<link rel="stylesheet" type="text/css" href="css/common.css">
 	<script type="text/javascript" src="js/jquery.easyui.min.js"></script>
-    <script type="text/javascript" src="http://www.w3cschool.cc/try/jeasyui/datagrid-detailview.js"></script>
+    <script type="text/javascript" src="js/datagrid-detailview.js"></script>
+    <script type="text/javascript" src="js/jquery.edatagrid.js"></script>
 	<script type="text/javascript" src="js/easyui-lang-zh_CN.js"></script>
 	<script type="text/javascript" src="js/jqueryUtil.js"></script>
 	<script type="text/javascript" src="js/json2.js"></script>

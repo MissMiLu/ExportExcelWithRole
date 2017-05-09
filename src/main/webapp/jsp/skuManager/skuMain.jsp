@@ -29,8 +29,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 },
                 onExpandRow: function(index,row) {
                     var ddv = $(this).datagrid('getRowDetail', index).find('div.ddv');
-                    ddv.datagrid({
+                    ddv.edatagrid({
                         url : "spu/spuAction!findSkuBySpu.action?spuId=" + row.spuId,
+						saveUrl: "todo",
+                        updateUrl: "todo",
+                        destroyUrl: "todo",
                         fitColumns:true,
                         singleSelect:true,
                         rownumbers:true,
@@ -38,11 +41,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         height:'auto',
                         width : 'auto',
                         columns:[[
-                            {field:'myid',title:'sku标识',width : 80},
+                            {field:'myid',title:'sku标识',editor:'text',width : 80,},
                             {field:'color',title:'颜色',width : 80},
                             {field:'size',title:'尺寸',width : 80},
-					        {field:'weight',title:'重量',width : 80},
-					        {field:'latestCost',title:'最新报价',width : 80}
+					        {field:'weight',title:'重量',editor:'numberbox',width : 80},
+					        {field:'latestCost',title:'最新报价',editor:'numberbox',width : 80}
                         ]],
                         onResize:function(){
                             $('#dg').datagrid('fixDetailRowHeight',index);
