@@ -106,7 +106,7 @@ public class SpuServiceImpl implements SpuService
 			String hql="from Sku t where t.spuId="+spu.getSpuId();
 			List<Sku> list = publicDao.find(hql);
 			for(Sku sku : list){
-				sku.setLastmod(new Date());
+				//sku.setLastmod(new Date());
 				sku.setModifiyer(userId);
 				publicDao.delete(sku);
 			}
@@ -115,7 +115,7 @@ public class SpuServiceImpl implements SpuService
 			for(String size : spu.getSize().split(",")){
 				String colorSim = Color.getSimByName(colorname);
 				Sku sku = new Sku(spu.getSpuId(),spu.getName(), spu.getMyid()+ "-" + colorSim + "-" + size, spu.getDistChName(), spu.getDistEnName(), colorname, size,
-						spu.getLatestCost(), spu.getWeight(), spu.getDeveloper(), spu.getEnquirer(), spu.getBuyer(), new Date(), userId, userId);
+						spu.getLatestCost(), spu.getWeight(), spu.getDeveloper(), spu.getEnquirer(), spu.getBuyer(),  userId, userId);
 				publicDao.save(sku);
 			}
 		}

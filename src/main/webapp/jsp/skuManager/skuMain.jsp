@@ -31,28 +31,37 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     var ddv = $(this).datagrid('getRowDetail', index).find('div.ddv');
                     ddv.edatagrid({
                         url : "spu/spuAction!findSkuBySpu.action?spuId=" + row.spuId,
-						saveUrl: "todo",
-                        updateUrl: "todo",
-                        destroyUrl: "todo",
+						saveUrl: "sku/skuAction!persistenceSku.action",
+                        updateUrl: "sku/skuAction!persistenceSku.action",
+                        destroyUrl: "sku/skuAction!delSpu.action",
+                        autoSave: true,
                         fitColumns:true,
                         singleSelect:true,
-                        rownumbers:true,
                         loadMsg:'',
                         height:'auto',
                         width : 'auto',
                         columns:[[
-                            {field:'myid',title:'sku标识',editor:'text',width : 80,},
+                            {field:'myid',title:'sku标识',width : 80,},
                             {field:'color',title:'颜色',width : 80},
                             {field:'size',title:'尺寸',width : 80},
-					        {field:'weight',title:'重量',editor:'numberbox',width : 80},
-					        {field:'latestCost',title:'最新报价',editor:'numberbox',width : 80}
+					        {field:'weight',title:'重量',editor:{type:'numberbox',options:{precision:1}},width : 80},
+					        {field:'latestCost',title:'最新报价',editor:{type:'numberbox',options:{precision:1}},width : 80}
                         ]],
+                        onSave:function (index,row) {
+                            parent.$.messager.show({
+                                title : 'success',
+                                msg : row.myid + ' saved!',
+                                timeout : 1000 * 2
+                            });
+                        },
                         onResize:function(){
                             $('#dg').datagrid('fixDetailRowHeight',index);
+                            $('#dg').edatagrid('fixDetailRowHeight',index);
                         },
                         onLoadSuccess:function(){
                             setTimeout(function(){
                                 $('#dg').datagrid('fixDetailRowHeight',index);
+                                $('#dg').edatagrid('fixDetailRowHeight',index);
                             },0);
                         }
                     });
