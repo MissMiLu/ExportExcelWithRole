@@ -131,20 +131,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
         //导出
         function exportRows() {
-            parent.$.messager.confirm("提示","确定导出?",function(r){
-                if (r){
-                    $.ajax({
-                        url:"spu/spuAction!exportSkuList.action",
-                        success: function(){
-                            parent.$.messager.show({
-                                title :"提示",
-                                msg :"导出成功!",
-                                timeout : 1000 * 2
-                            });
-                        }
-                    });
-                }
-            });
+            var rows = $dg.datagrid("getRows");
+            if(rows.length){
+                window.location.href="<%=basePath%>spu/spuAction!exportSkuList.action";
+            }else{
+                parent.$.messager.show({
+                    title :"提示",
+                    msg :"暂无导出数据!",
+                    timeout : 1000 * 2
+                });
+            }
         }
 			//弹窗修改
 			function updRowsOpenDlg() {
@@ -246,7 +242,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="delRows();">删除</a>
 						</shiro:hasPermission>
 						<shiro:hasPermission name="skuExport">
-							<a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-save" plain="true" onclick="exportRows();">导出</a>
+							<a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-excel" plain="true" onclick="exportRows();">导出</a>
 						</shiro:hasPermission>
 					</td>
 					<td style="padding-left:2px">
