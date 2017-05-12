@@ -107,10 +107,10 @@ margin-left: 88px;
 					<div class="tip">
 						<input class="password" name="password" type="password" id="password" title="密码" nullmsg="请输入密码!" />
 					</div>
-					<div id="cap" class="tip">
-						<input class="captcha" name="captcha" type="text" id="captcha"  nullmsg="请输入验证码!" />
-						<img style="width:85px;height:35px;margin-top: -10px;" align="absmiddle" id="Kaptcha" src="Kaptcha.jpg"/>
-					</div>
+					<%--<div id="cap" class="tip">--%>
+						<%--<input class="captcha" name="captcha" type="text" id="captcha"  nullmsg="请输入验证码!" />--%>
+						<%--<img style="width:85px;height:35px;margin-top: -10px;" align="absmiddle" id="Kaptcha" src="Kaptcha.jpg"/>--%>
+					<%--</div>--%>
 					<div class="loginButton">
 						<div style="float: left; margin-left: -9px;">
 							<input type="checkbox" id="on_off" name="remember" checked="true" class="on_off_checkbox" value="0" /> <span class="f_help">是否记住用户名?</span>

@@ -10,105 +10,6 @@
 			width:'auto',
 			height:$(this).height()-340
 		});
-		$("#saleId").combotree({
-			width:171,
-			url:"cst/cstAction!findSaleNameList.action",
-			idFiled:'id',
-		 	textFiled:'name',
-		 	parentField:'pid',
-		 	onBeforeSelect:function(node){
-		 		if(node.attributes.status=="o"){
-		 			return false;
-		 		}else{
-		 			$("#saleName").val(node.text);
-		 		}
-		 	}
-		});
-		
-		$("#cityId").combotree({
-			width:171,
-			url:"area/areaAction!findCities.action",
-			idFiled:'id',
-		 	textFiled:'name',
-		 	parentField:'pid',
-		 	onBeforeSelect:function(node){
-		 		if(node.attributes.status=="p"){
-		 			return false;
-		 		}else{
-		 			$("#cityName").val(node.text);
-		 		}
-		 	}
-		});
-
-		$("#classId").combobox({
-			width:171,
-			url:"systemCode/systemCodeAction!findSystemCodeByType.action?codeMyid=customerClass",
-			valueField: 'codeId',
-			textField: 'name',
-			onSelect:function(value){
-				$("#className").val(value.name);
-			}
-		});
-		
-		$("#levelId").combobox({
-			width:171,
-			url:"systemCode/systemCodeAction!findSystemCodeByType.action?codeMyid=customerLevel",
-			valueField: 'codeId',
-			textField: 'name',
-			onSelect:function(value){
-				$("#levelName").val(value.name);
-			}
-		});
-		
-		$("#industryId").combobox({
-			width:171,
-			url:"systemCode/systemCodeAction!findSystemCodeByType.action?codeMyid=industry",
-			valueField: 'codeId',
-			textField: 'name',
-			onSelect:function(value){
-				$("#industryName").val(value.name);
-			}
-		});
-		
-		$("#sizeId").combobox({
-			width:171,
-			url:"systemCode/systemCodeAction!findSystemCodeByType.action?codeMyid=companySize",
-			valueField: 'codeId',
-			textField: 'name',
-			onSelect:function(value){
-				$("#sizeName").val(value.name);
-			}
-		});
-		
-		$("#creditId").combobox({
-			width:171,
-			url:"systemCode/systemCodeAction!findSystemCodeByType.action?codeMyid=credit",
-			valueField: 'codeId',
-			textField: 'name',
-			onSelect:function(value){
-				$("#creditName").val(value.name);
-			}
-		});
-		
-		$("#natureId").combobox({
-			width:171,
-			url:"systemCode/systemCodeAction!findSystemCodeByType.action?codeMyid=customerNature",
-			valueField: 'codeId',
-			textField: 'name',
-			onSelect:function(value){
-				$("#natureName").val(value.name);
-			}
-		});
-		
-		$("#currencyId").combobox({
-			width:171,
-			url:"currency/currencyAction!findCurrencyList.action",
-			valueField: 'id',
-			textField: 'name',
-			onSelect:function(value){
-				$("#currencyName").val(value.name);
-			}
-		});
 		
 		$("#form").form({
 			url :"spu/spuAction!persistenceSpu.action",
@@ -325,9 +226,9 @@
 								 </tr>
 								  <tr>
 									<th>颜色列表</th>
-									<td><input id="colors" name="colors" type="text" class="easyui-textbox easyui-validatebox"/><img src="extend/area.png" style="margin-left:2px;margin-bottom: -5px;cursor: pointer;" onclick="selectColorDlg();"/></td>
+									<td><input id="colors" name="colors" type="text" class="easyui-textbox easyui-validatebox"/><img src="../../extend/area.png" style="margin-left:2px;margin-bottom: -5px;cursor: pointer;" onclick="selectColorDlg();"/></td>
 									<th>尺码列表</th>
-									<td><input id="size" name="size" type="text" class="easyui-textbox easyui-validatebox"/><img src="extend/area.png" style="margin-left:2px;margin-bottom: -5px;cursor: pointer;" onclick="editSizeDlg();"/></td>
+									<td><input id="size" name="size" type="text" class="easyui-textbox easyui-validatebox"/><img src="../../extend/area.png" style="margin-left:2px;margin-bottom: -5px;cursor: pointer;" onclick="editSizeDlg();"/></td>
 									 <th>业务开发员</th>
 									<td><input id="developer" name="developer" type="text" class="easyui-textbox easyui-validatebox"/></td>
 								 </tr>

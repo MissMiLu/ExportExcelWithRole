@@ -5,7 +5,6 @@
         width : 'auto',
         height : $(this).height()-85,
         pagination:true,
-        rownumbers:true,
         border:true,
         striped:true,
         singleSelect:false,

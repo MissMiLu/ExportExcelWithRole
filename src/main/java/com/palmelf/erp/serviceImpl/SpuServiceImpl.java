@@ -64,6 +64,14 @@ public class SpuServiceImpl implements SpuService
 		 return publicDao.find(hql);
 	}
 
+	public List<Sku> findSkuNoPage(Map<String, Object> param,PageUtil pageUtil)
+	{
+		String hql="from Sku s ";
+		hql+=Constants.getSearchConditionsHQL("s", param);
+		hql+=Constants.getGradeSearchConditionsHQL("t", pageUtil);
+		return publicDao.find(hql, param);
+	}
+
 	/* (非 Javadoc)
 	* <p>Title: getCount</p>
 	* <p>Description: 查询所有总数</p>
