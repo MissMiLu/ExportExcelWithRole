@@ -2,12 +2,8 @@ package com.palmelf.erp.action;
 
 import com.opensymphony.xwork2.ModelDriven;
 import com.palmelf.erp.model.Sku;
-import com.palmelf.erp.model.Spu;
 import com.palmelf.erp.service.SkuService;
-import com.palmelf.erp.service.SpuService;
 import com.palmelf.erp.util.Constants;
-import com.palmelf.erp.util.PageUtil;
-import com.palmelf.erp.viewModel.GridModel;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.springframework.beans.factory.annotation.Autowired;

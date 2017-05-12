@@ -41,11 +41,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         height:'auto',
                         width : 'auto',
                         columns:[[
-                            {field:'myid',title:'sku标识',width : 80,},
-                            {field:'color',title:'颜色',width : 80},
-                            {field:'size',title:'尺寸',width : 80},
-					        {field:'weight',title:'重量',editor:{type:'numberbox',options:{precision:1}},width : 80},
-					        {field:'latestCost',title:'最新报价',editor:{type:'numberbox',options:{precision:1}},width : 80}
+                            {field:'myid',title:'sku标识',width : 50,},
+                            {field:'color',title:'颜色',width : 50},
+                            {field:'size',title:'尺寸',width : 50},
+					        {field:'weight',title:'重量',editor:{type:'numberbox',options:{precision:2}},width : 50},
+					        {field:'latestCost',title:'最新报价',editor:{type:'numberbox',options:{precision:2}},width : 50}
                         ]],
                         onSave:function (index,row) {
                             parent.$.messager.show({
@@ -128,6 +128,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					});
 				}
 			}
+
+        //导出
+        function exportRows() {
+            parent.$.messager.confirm("提示","确定导出?",function(r){
+                if (r){
+                    $.ajax({
+                        url:"spu/spuAction!exportSkuList.action",
+                        success: function(){
+                            parent.$.messager.show({
+                                title :"提示",
+                                msg :"导出成功!",
+                                timeout : 1000 * 2
+                            });
+                        }
+                    });
+                }
+            });
+        }
 			//弹窗修改
 			function updRowsOpenDlg() {
 				var row = $dg.datagrid('getSelected');
@@ -228,7 +246,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="delRows();">删除</a>
 						</shiro:hasPermission>
 						<shiro:hasPermission name="skuExport">
-							<a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-save" plain="true" onclick="delRows();">导出</a>
+							<a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-save" plain="true" onclick="exportRows();">导出</a>
 						</shiro:hasPermission>
 					</td>
 					<td style="padding-left:2px">

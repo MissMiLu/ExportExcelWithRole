@@ -29,6 +29,8 @@ public interface SpuService
 
 	List<Spu> findSpuNoPage(Map<String, Object> param, PageUtil pageUtil);
 
+	List<Sku> findSkuNoPage(Map<String, Object> param, PageUtil pageUtil);
+
 	List<ColorClass> findColorList();
 
 	List<SizeClass> findSizeList();
