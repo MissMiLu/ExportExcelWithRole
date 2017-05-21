@@ -119,13 +119,20 @@ public class SpuServiceImpl implements SpuService
 				publicDao.delete(sku);
 			}
 		}
+
+		String[] short_colors = spu.getShort_colors().split(",");
+
+		int i = 0;
 		for (String colorname : spu.getColors().split(",")){
+
+			String colorSim = short_colors[i];
+
 			for(String size : spu.getSize().split(",")){
-				String colorSim = Color.getSimByName(colorname);
 				Sku sku = new Sku(spu.getSpuId(),spu.getName(), spu.getMyid()+ "-" + colorSim + "-" + size, spu.getDistChName(), spu.getDistEnName(), colorname, size,
 						spu.getLatestCost(), spu.getWeight(), spu.getDeveloper(), spu.getEnquirer(), spu.getBuyer(),  userId, userId);
 				publicDao.save(sku);
 			}
+			i++;
 		}
 		return true;
 	}

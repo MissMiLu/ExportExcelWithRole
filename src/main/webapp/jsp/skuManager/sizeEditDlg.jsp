@@ -3,8 +3,8 @@
     $("#sizeDlg").datagrid({
         url : "spu/spuAction!findSizes.action",
         width : 'auto',
-        height : $(this).height()-85,
-        pagination:true,
+        height : $(this).height()-340,
+        pagination:false,
         rownumbers:true,
         border:true,
         striped:true,
@@ -81,7 +81,6 @@
 </style>
 <div class="easyui-layout" data-options="fit:true,border:false">
 	<div data-options="region:'center',border:false" title="" style="overflow: hidden;padding: 10px;">
-		<%--<input id="sb">--%>
 		<table id="sizeDlg" title="选择尺寸"></table>
 	</div>
 </div>

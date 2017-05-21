@@ -7,8 +7,7 @@
 	$(function() {
 		$("#tt").tabs({
 			border:false,
-			width:'auto',
-			height:$(this).height()-340
+			width:'auto'
 		});
 		
 		$("#form").form({
@@ -64,21 +63,84 @@
 			height : 400,
 			modal : true,
 			title : '选择区域',
-			buttons : [ {
+			buttons : [{
+                text : '添加自定义颜色',
+                iconCls : 'icon-add',
+                handler : function() {
+                    $("<div/>").dialog({
+                        href : "jsp/skuManager/customColorEditDlg.jsp",
+                        width : 600,
+                        height : 400,
+                        modal : true,
+                        title : '自定义颜色',
+                        buttons : [{
+                            text : '保存',
+                            iconCls : 'icon-add',
+                            handler : function() {
+
+                                $dg = $("#dg");
+
+                                var flag=true;
+                                var rows = $dg.datagrid('getRows');
+                                for ( var i = 0; i < rows.length; i++) {
+                                    $dg.datagrid('endEdit', i);
+                                    var temp=$dg.datagrid('validateRow', i);
+                                    if(!temp){flag=false;}
+                                }
+
+                                if(flag){
+
+                                    if ($dg.datagrid('getChanges').length) {
+
+                                        var inserted = $dg.datagrid('getChanges', "inserted");
+                                        $colorDlg = $("#colorDlg");
+                                        var i = 0;
+                                        for(i;i<inserted.length;i++){
+                                            var row = inserted[i];
+                                            $colorDlg.datagrid('appendRow', row);
+                                        }
+
+                                    }
+
+                                    $(this).closest('.window-body').dialog('destroy');
+
+								}else{
+                                    $.messager.alert("提示", "字段验证未通过!请查看");
+                                }
+
+                            }
+                        },{
+                            text : '取消',
+                            iconCls : 'icon-cancel',
+                            handler : function() {
+                                $(this).closest('.window-body').dialog('destroy');
+                            }
+                        }],
+                        onClose : function() {
+                            $(this).dialog('destroy');
+                        }
+                    });
+                }
+            }, {
 				text : '选择',
 				iconCls : 'icon-add',
 				handler : function() {
                     var row = $('#colorDlg').datagrid('getSelections');
                     var i = 0;
                     var colors = "";
+                    var short_colors = "";
                     for(i;i<row.length;i++){
                         colors += row[i].name;
+                        short_colors += row[i].simplified;
                         if(i < row.length-1){
                             colors += ',';
+                            short_colors += ',';
                         }else{
                             break;
                         }
                     }
+
+                    $('#short_colors').attr("value",short_colors);
 					$('#colors').attr("value",colors);
                     $(this).closest('.window-body').dialog('destroy');
                 }
@@ -101,7 +163,65 @@
             height : 400,
             modal : true,
             title : '选择区域',
-            buttons : [ {
+            buttons : [{
+                text : '添加自定义尺寸',
+                iconCls : 'icon-add',
+                handler : function() {
+                    $("<div/>").dialog({
+                        href : "jsp/skuManager/customSizeEditDlg.jsp",
+                        width : 600,
+                        height : 400,
+                        modal : true,
+                        title : '自定义颜色',
+                        buttons : [{
+                            text : '保存',
+                            iconCls : 'icon-add',
+                            handler : function() {
+
+                                $dg = $("#dg");
+
+                                var flag=true;
+                                var rows = $dg.datagrid('getRows');
+                                for ( var i = 0; i < rows.length; i++) {
+                                    $dg.datagrid('endEdit', i);
+                                    var temp=$dg.datagrid('validateRow', i);
+                                    if(!temp){flag=false;}
+                                }
+
+                                if(flag){
+
+                                    if ($dg.datagrid('getChanges').length) {
+
+                                        var inserted = $dg.datagrid('getChanges', "inserted");
+                                        $sizeDlg = $("#sizeDlg");
+                                        var i = 0;
+                                        for(i;i<inserted.length;i++){
+                                            var row = inserted[i];
+                                            $sizeDlg.datagrid('appendRow', row);
+                                        }
+
+                                    }
+
+                                    $(this).closest('.window-body').dialog('destroy');
+
+                                }else{
+                                    $.messager.alert("提示", "字段验证未通过!请查看");
+                                }
+
+                            }
+                        },{
+                            text : '取消',
+                            iconCls : 'icon-cancel',
+                            handler : function() {
+                                $(this).closest('.window-body').dialog('destroy');
+                            }
+                        }],
+                        onClose : function() {
+                            $(this).dialog('destroy');
+                        }
+                    });
+                }
+            }, {
                 text : '选择',
                 iconCls : 'icon-add',
                 handler : function() {
@@ -202,11 +322,11 @@
 						<fieldset>
 							<legend>spu编辑</legend>
 							<input name="spuId" id="spuId"  type="hidden"/>
-							<input name="created" id="created"  type="hidden"/>
 							<input name="creater" id="creater"  type="hidden"/>
 							<input name="inserted" id="inserted"  type="hidden"/>
 							<input name="updated" id="updated"  type="hidden"/>
 							<input name="deleted" id="deleted"  type="hidden"/>
+							<input name="short_colors" id="short_colors"  type="hidden"/>
 							 <table class="table">
 								 <tr>
 								    <th>商品名称</th>
