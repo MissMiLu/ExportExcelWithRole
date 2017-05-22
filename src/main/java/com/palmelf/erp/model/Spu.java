@@ -35,7 +35,7 @@ public class Spu implements java.io.Serializable
 	private Integer creater;
 	private Integer modifiyer;
 
-	private String short_colors;
+	private String shortColors;
 
 	/** default constructor */
 	public Spu()
@@ -49,7 +49,7 @@ public class Spu implements java.io.Serializable
 		this.myid = myid;
 	}
 
-	public Spu(Integer spuId, String name, String myid, String distChName, String distEnName, String colors, String size, Double latestCost, Double weight, String developer, String enquirer, String buyer, Date lastmod, Integer creater, Integer modifiyer, String short_colors) {
+	public Spu(Integer spuId, String name, String myid, String distChName, String distEnName, String colors, String size, Double latestCost, Double weight, String developer, String enquirer, String buyer, Date lastmod, Integer creater, Integer modifiyer, String shortColors) {
 		this.spuId = spuId;
 		this.name = name;
 		this.myid = myid;
@@ -65,7 +65,7 @@ public class Spu implements java.io.Serializable
 		this.lastmod = lastmod;
 		this.creater = creater;
 		this.modifiyer = modifiyer;
-		this.short_colors = short_colors;
+		this.shortColors = shortColors;
 	}
 
 	@Id
@@ -207,12 +207,12 @@ public class Spu implements java.io.Serializable
 		this.modifiyer = modifiyer;
 	}
 
-	@Column(name = "short_colors")
-	public String getShort_colors() {
-		return short_colors;
+	@Column(name = "SHORTCOLORS")
+	public String getShortColors() {
+		return shortColors;
 	}
 
-	public void setShort_colors(String short_colors) {
-		this.short_colors = short_colors;
+	public void setShortColors(String shortColors) {
+		this.shortColors = shortColors;
 	}
 }

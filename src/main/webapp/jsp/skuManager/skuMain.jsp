@@ -186,7 +186,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			//弹窗增加
 			function addRowsOpenDlg() {
 				parent.$.modalDialog({
-					title : '添加客户',
 					width : 900,
 					height :550,
 					href : "jsp/skuManager/skuEditDlg.jsp",

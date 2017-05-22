@@ -59,71 +59,12 @@
 	function selectColorDlg() {
 		$("<div/>").dialog({
 			href : "jsp/skuManager/colorEditDlg.jsp",
-			width : 600,
-			height : 400,
+			width : 800,
+			height : 650,
 			modal : true,
-			title : '选择区域',
 			buttons : [{
-                text : '添加自定义颜色',
-                iconCls : 'icon-add',
-                handler : function() {
-                    $("<div/>").dialog({
-                        href : "jsp/skuManager/customColorEditDlg.jsp",
-                        width : 600,
-                        height : 400,
-                        modal : true,
-                        title : '自定义颜色',
-                        buttons : [{
-                            text : '保存',
-                            iconCls : 'icon-add',
-                            handler : function() {
-
-                                $dg = $("#dg");
-
-                                var flag=true;
-                                var rows = $dg.datagrid('getRows');
-                                for ( var i = 0; i < rows.length; i++) {
-                                    $dg.datagrid('endEdit', i);
-                                    var temp=$dg.datagrid('validateRow', i);
-                                    if(!temp){flag=false;}
-                                }
-
-                                if(flag){
-
-                                    if ($dg.datagrid('getChanges').length) {
-
-                                        var inserted = $dg.datagrid('getChanges', "inserted");
-                                        $colorDlg = $("#colorDlg");
-                                        var i = 0;
-                                        for(i;i<inserted.length;i++){
-                                            var row = inserted[i];
-                                            $colorDlg.datagrid('appendRow', row);
-                                        }
-
-                                    }
-
-                                    $(this).closest('.window-body').dialog('destroy');
-
-								}else{
-                                    $.messager.alert("提示", "字段验证未通过!请查看");
-                                }
-
-                            }
-                        },{
-                            text : '取消',
-                            iconCls : 'icon-cancel',
-                            handler : function() {
-                                $(this).closest('.window-body').dialog('destroy');
-                            }
-                        }],
-                        onClose : function() {
-                            $(this).dialog('destroy');
-                        }
-                    });
-                }
-            }, {
 				text : '选择',
-				iconCls : 'icon-add',
+				iconCls : 'icon-ok',
 				handler : function() {
                     var row = $('#colorDlg').datagrid('getSelections');
                     var i = 0;
@@ -160,70 +101,11 @@
         $("<div/>").dialog({
             href : "jsp/skuManager/sizeEditDlg.jsp",
             width : 600,
-            height : 400,
+            height : 500,
             modal : true,
-            title : '选择区域',
-            buttons : [{
-                text : '添加自定义尺寸',
-                iconCls : 'icon-add',
-                handler : function() {
-                    $("<div/>").dialog({
-                        href : "jsp/skuManager/customSizeEditDlg.jsp",
-                        width : 600,
-                        height : 400,
-                        modal : true,
-                        title : '自定义颜色',
-                        buttons : [{
-                            text : '保存',
-                            iconCls : 'icon-add',
-                            handler : function() {
-
-                                $dg = $("#dg");
-
-                                var flag=true;
-                                var rows = $dg.datagrid('getRows');
-                                for ( var i = 0; i < rows.length; i++) {
-                                    $dg.datagrid('endEdit', i);
-                                    var temp=$dg.datagrid('validateRow', i);
-                                    if(!temp){flag=false;}
-                                }
-
-                                if(flag){
-
-                                    if ($dg.datagrid('getChanges').length) {
-
-                                        var inserted = $dg.datagrid('getChanges', "inserted");
-                                        $sizeDlg = $("#sizeDlg");
-                                        var i = 0;
-                                        for(i;i<inserted.length;i++){
-                                            var row = inserted[i];
-                                            $sizeDlg.datagrid('appendRow', row);
-                                        }
-
-                                    }
-
-                                    $(this).closest('.window-body').dialog('destroy');
-
-                                }else{
-                                    $.messager.alert("提示", "字段验证未通过!请查看");
-                                }
-
-                            }
-                        },{
-                            text : '取消',
-                            iconCls : 'icon-cancel',
-                            handler : function() {
-                                $(this).closest('.window-body').dialog('destroy');
-                            }
-                        }],
-                        onClose : function() {
-                            $(this).dialog('destroy');
-                        }
-                    });
-                }
-            }, {
+            buttons : [ {
                 text : '选择',
-                iconCls : 'icon-add',
+                iconCls : 'icon-ok',
                 handler : function() {
                     var row = $('#sizeDlg').datagrid('getSelections');
                     var i = 0;

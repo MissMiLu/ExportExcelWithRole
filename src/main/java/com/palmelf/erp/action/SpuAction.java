@@ -328,6 +328,12 @@ public class SpuAction extends BaseAction implements ModelDriven<Spu>
 					case 7:
 						cell.setCellValue(s.getDistEnName());
 						break;
+					case 8:
+						cell.setCellValue(s.getDistChName());
+						break;
+					case 9:
+						cell.setCellValue(s.getDistEnName());
+						break;
 					case 12:
 						cell.setCellValue(s.getLatestCost());
 						break;

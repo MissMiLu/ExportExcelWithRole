@@ -2,8 +2,7 @@
 <script type="text/javascript">
     $("#sizeDlg").datagrid({
         url : "spu/spuAction!findSizes.action",
-        width : 'auto',
-        height : $(this).height()-340,
+        fit:true,
         pagination:false,
         rownumbers:true,
         border:true,
@@ -15,18 +14,70 @@
             {field : 'value',title : '尺寸',width : parseInt($(this).width()*0.1)}
         ] ]
     });
-//        $('#sb').switchbutton({
-//            checked: true,
-//            onText: 'Regular',
-//            offText: 'Custom',
-//            onChange: function(checked){
-//                if (checked)
-//
-//                    $("#sizeDlg").hide();
-//                else
-//                    $("#sizeDlg").show();
-//            }
-//        })
+    $cusSize = $("#cusSize");
+    $grid=$cusSize.datagrid({
+        url : '',
+        width : 'auto',
+        height : $(this).height()-380,
+        rownumbers:true,
+        border:false,
+        fit:true,
+        singleSelect:true,
+        columns : [ [
+            {field : 'value',title : '尺寸',width : parseInt($(this).width()*0.2),align : 'left',editor : "text"}
+        ] ],toolbar:'#csTBar'
+    });
+
+
+    function addRows(){
+        $cusSize.datagrid('appendRow', {});
+        var rows = $cusSize.datagrid('getRows');
+        $cusSize.datagrid('beginEdit', rows.length - 1);
+    }
+
+    function endEdit(){
+        var flag=true;
+        var rows = $cusSize.datagrid('getRows');
+        for ( var i = 0; i < rows.length; i++) {
+            $cusSize.datagrid('endEdit', i);
+            var temp=$cusSize.datagrid('validateRow', i);
+            if(!temp){flag=false;}
+        }
+        return flag;
+    }
+
+    function removeRows(){
+        var rows = $cusSize.datagrid('getSelections');
+        $.each(rows,function(i,row){
+            if (row) {
+                var rowIndex = $cusSize.datagrid('getRowIndex', row);
+                $cusSize.datagrid('deleteRow', rowIndex);
+            }
+        });
+    }
+    function saveRows(){
+        var flag=true;
+        var rows = $cusSize.datagrid('getRows');
+        for ( var i = 0; i < rows.length; i++) {
+            $cusSize.datagrid('endEdit', i);
+            var temp=$cusSize.datagrid('validateRow', i);
+            if(!temp){flag=false;}
+        }
+        if(flag){
+            if ($cusSize.datagrid('getChanges').length) {
+                var inserted = $cusSize.datagrid('getChanges', "inserted");
+                $sizeDlg = $("#sizeDlg");
+                var i = 0;
+                for(i;i<inserted.length;i++){
+                    var row = inserted[i];
+                    $sizeDlg.datagrid('appendRow', row);
+                }
+            }
+            $cusSize.datagrid('loadData',{total:0,rows:[]});
+        }else{
+            $.messager.alert("提示", "字段验证未通过!请查看");
+        }
+    }
 </script>
 <style>
 	.easyui-textbox{
@@ -82,5 +133,22 @@
 <div class="easyui-layout" data-options="fit:true,border:false">
 	<div data-options="region:'center',border:false" title="" style="overflow: hidden;padding: 10px;">
 		<table id="sizeDlg" title="选择尺寸"></table>
+	</div>
+	<div data-options="region:'east',split:true" title="自定义尺寸" style="width:300px;">
+		<table id="cusSize"></table>
+		<div id="csTBar" style="padding:2px 0">
+			<table cellpadding="0" cellspacing="0">
+				<tr>
+					<td style="padding-left:2px">
+						<%--<shiro:hasPermission name="cstConEdit">--%>
+						<a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="addRows();">添加</a>
+						<a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-end" plain="true" onclick="endEdit();">结束编辑</a>
+						<a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="removeRows();">删除</a>
+							<a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-save" plain="true" onclick="saveRows();">保存</a>
+						<%--</shiro:hasPermission>--%>
+					</td>
+				</tr>
+			</table>
+		</div>
 	</div>
 </div>
