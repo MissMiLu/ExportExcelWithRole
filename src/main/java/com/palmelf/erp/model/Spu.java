@@ -4,6 +4,7 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -13,6 +14,7 @@ import java.util.Date;
 @Table(name = "SPU", catalog = "ERP")
 @DynamicUpdate(true)
 @DynamicInsert(true)
+
 public class Spu implements java.io.Serializable
 {
 	private static final long serialVersionUID = -2821343605850547602L;
@@ -28,11 +30,12 @@ public class Spu implements java.io.Serializable
 	private String developer;
 	private String enquirer;
 	private String buyer;
-	//private Date created;
+
 	private Date lastmod;
 	private Integer creater;
 	private Integer modifiyer;
 
+	private String short_colors;
 
 	/** default constructor */
 	public Spu()
@@ -46,8 +49,7 @@ public class Spu implements java.io.Serializable
 		this.myid = myid;
 	}
 
-	public Spu(Integer spuId, String name, String myid, String distChName, String distEnName, String colors, String size,
-			   Double latestCost, Double weight, String developer, String enquirer, String buyer,  Date lastmod, Integer creater, Integer modifiyer) {
+	public Spu(Integer spuId, String name, String myid, String distChName, String distEnName, String colors, String size, Double latestCost, Double weight, String developer, String enquirer, String buyer, Date lastmod, Integer creater, Integer modifiyer, String short_colors) {
 		this.spuId = spuId;
 		this.name = name;
 		this.myid = myid;
@@ -60,10 +62,10 @@ public class Spu implements java.io.Serializable
 		this.developer = developer;
 		this.enquirer = enquirer;
 		this.buyer = buyer;
-		//this.created = created;
 		this.lastmod = lastmod;
 		this.creater = creater;
 		this.modifiyer = modifiyer;
+		this.short_colors = short_colors;
 	}
 
 	@Id
@@ -176,15 +178,6 @@ public class Spu implements java.io.Serializable
 		this.buyer = buyer;
 	}
 
-//	@Temporal(TemporalType.TIMESTAMP)
-//	@Column(name = "CREATED")
-//	public Date getCreated() {
-//		return created;
-//	}
-//
-//	public void setCreated(Date created) {
-//		this.created = created;
-//	}
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "LASTMOD")
@@ -212,5 +205,14 @@ public class Spu implements java.io.Serializable
 
 	public void setModifiyer(Integer modifiyer) {
 		this.modifiyer = modifiyer;
+	}
+
+	@Column(name = "short_colors")
+	public String getShort_colors() {
+		return short_colors;
+	}
+
+	public void setShort_colors(String short_colors) {
+		this.short_colors = short_colors;
 	}
 }
