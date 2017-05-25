@@ -69,19 +69,19 @@
                     var row = $('#colorDlg').datagrid('getSelections');
                     var i = 0;
                     var colors = "";
-                    var short_colors = "";
+                    var shortColors = "";
                     for(i;i<row.length;i++){
                         colors += row[i].name;
-                        short_colors += row[i].simplified;
+                        shortColors += row[i].simplified;
                         if(i < row.length-1){
                             colors += ',';
-                            short_colors += ',';
+                            shortColors += ',';
                         }else{
                             break;
                         }
                     }
 
-                    $('#short_colors').attr("value",short_colors);
+                    $('#shortColors').attr("value",shortColors);
 					$('#colors').attr("value",colors);
                     $(this).closest('.window-body').dialog('destroy');
                 }
@@ -208,7 +208,7 @@
 							<input name="inserted" id="inserted"  type="hidden"/>
 							<input name="updated" id="updated"  type="hidden"/>
 							<input name="deleted" id="deleted"  type="hidden"/>
-							<input name="short_colors" id="short_colors"  type="hidden"/>
+							<input name="shortColors" id="shortColors"  type="hidden"/>
 							 <table class="table">
 								 <tr>
 								    <th>商品名称</th>

@@ -29,6 +29,7 @@ public class Sku implements java.io.Serializable
 	private String developer;
 	private String enquirer;
 	private String buyer;
+	private String status;
 	//private Date lastmod;
 	private Integer creater;
 	private Integer modifiyer;
@@ -46,7 +47,7 @@ public class Sku implements java.io.Serializable
 	}
 
 	public Sku(Integer spuid,String name, String myid, String distChName, String distEnName, String color, String size,
-               Double latestCost, Double weight, String developer, String enquirer, String buyer, Integer creater, Integer modifiyer) {
+               Double latestCost, Double weight, String developer, String enquirer, String buyer, String status, Integer creater, Integer modifiyer) {
 		this.spuId = spuid;
 		this.name = name;
 		this.myid = myid;
@@ -59,6 +60,7 @@ public class Sku implements java.io.Serializable
 		this.developer = developer;
 		this.enquirer = enquirer;
 		this.buyer = buyer;
+		this.status = status;
 		//this.created = created;
 		//this.lastmod = lastmod;
 		this.creater = creater;
@@ -220,5 +222,14 @@ public class Sku implements java.io.Serializable
 
 	public void setModifiyer(Integer modifiyer) {
 		this.modifiyer = modifiyer;
+	}
+
+	@Column(name = "STATUS")
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 }

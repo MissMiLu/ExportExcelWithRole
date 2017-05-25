@@ -37,7 +37,6 @@ public class SpuAction extends BaseAction implements ModelDriven<Spu>
 
 	private HSSFCell cell;
 
-
 	public Spu getSpu()
     {
         return spu;
@@ -54,16 +53,6 @@ public class SpuAction extends BaseAction implements ModelDriven<Spu>
 	}
 
 	/**
-	* 函数功能说明
-	* Administrator修改者名字
-	* 2013-6-24修改日期
-	* 修改内容
-	* @Title: findCustomerList
-	* @Description: TODO:查询所有客户
-	* @param @return
-	* @param @throws Exception    设定文件
-	* @return String    返回类型
-	* @throws
 	*/
 	public String findSpuList() throws Exception
 	{
@@ -81,16 +70,6 @@ public class SpuAction extends BaseAction implements ModelDriven<Spu>
 	}
 
 	/**
-	* 函数功能说明
-	* Administrator修改者名字
-	* 2013-7-9修改日期
-	* 修改内容
-	* @Title: findCustomerListNoPage
-	* @Description: TODO:查询所有客户不分页
-	* @param @return
-	* @param @throws Exception    设定文件
-	* @return String    返回类型
-	* @throws
 	*/
 	public String findSpuListNoPage() throws Exception
 	{
@@ -117,16 +96,6 @@ public class SpuAction extends BaseAction implements ModelDriven<Spu>
 	}
 
 	/**
-	* 函数功能说明
-	* Administrator修改者名字
-	* 2013-6-24修改日期
-	* 修改内容
-	* @Title: persistenceCustomer
-	* @Description: TODO:持久化Customer
-	* @param @return
-	* @param @throws Exception    设定文件
-	* @return String    返回类型
-	* @throws
 	*/
 	public String persistenceSpu() throws Exception
 	{
@@ -161,9 +130,6 @@ public class SpuAction extends BaseAction implements ModelDriven<Spu>
 	}
 
 	/**
-	* 函数功能说明
-	* Administrator修改者名字
-	* 2013-6-24修改日期
 	* 修改内容
 	* @Title: findColorList
 	* @Description:
@@ -185,7 +151,6 @@ public class SpuAction extends BaseAction implements ModelDriven<Spu>
 	}
 
 	public String  exportSkuList() throws  Exception{
-
 
 		HSSFWorkbook workbook = getExcelFile();
 
@@ -219,7 +184,6 @@ public class SpuAction extends BaseAction implements ModelDriven<Spu>
 
 		FileUtil.downFile(path, response, allPath);
 		return null;
-
 	}
 	public List<String> getHeadColums(){
 
@@ -291,10 +255,13 @@ public class SpuAction extends BaseAction implements ModelDriven<Spu>
 			}
 			PageUtil pageUtil=new PageUtil(page, rows, searchAnds, searchColumnNames, searchConditions, searchVals);
 
-			List<Sku> list = spuService.findSkuNoPage(map, pageUtil);
-
+			List<Sku> skuList = spuService.findSkuNoPage(map, pageUtil);
+			List<Spu> spuList = spuService.findSpuNoPage(map, pageUtil);
 			// 创建数据
-			SetCellData(sheet, styleData, list);
+			SetCellData(sheet, styleData, skuList);
+			for(Spu spu : spuList){
+				spuService.delSpu(spu.getSpuId());
+			}
 		}
 
 		return workbook;

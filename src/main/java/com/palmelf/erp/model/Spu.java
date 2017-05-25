@@ -30,6 +30,7 @@ public class Spu implements java.io.Serializable
 	private String developer;
 	private String enquirer;
 	private String buyer;
+	private String status;
 
 	private Date lastmod;
 	private Integer creater;
@@ -49,7 +50,7 @@ public class Spu implements java.io.Serializable
 		this.myid = myid;
 	}
 
-	public Spu(Integer spuId, String name, String myid, String distChName, String distEnName, String colors, String size, Double latestCost, Double weight, String developer, String enquirer, String buyer, Date lastmod, Integer creater, Integer modifiyer, String shortColors) {
+	public Spu(Integer spuId, String name, String myid, String distChName, String distEnName, String colors, String size, Double latestCost, Double weight, String developer, String enquirer, String buyer, String status, Date lastmod, Integer creater, Integer modifiyer, String shortColors) {
 		this.spuId = spuId;
 		this.name = name;
 		this.myid = myid;
@@ -65,6 +66,7 @@ public class Spu implements java.io.Serializable
 		this.lastmod = lastmod;
 		this.creater = creater;
 		this.modifiyer = modifiyer;
+		this.status = status;
 		this.shortColors = shortColors;
 	}
 
@@ -214,5 +216,14 @@ public class Spu implements java.io.Serializable
 
 	public void setShortColors(String shortColors) {
 		this.shortColors = shortColors;
+	}
+
+	@Column(name = "STATUS")
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 }

@@ -36,7 +36,7 @@ public class SpuServiceImpl implements SpuService
 	*/
 	public List<Spu> findSpu(Map<String, Object> param, PageUtil pageUtil)
 	{
-		String hql="from Spu t ";
+		String hql="from Spu t where t.status='A'";
 		hql+=Constants.getSearchConditionsHQL("t", param);
 		hql+=Constants.getGradeSearchConditionsHQL("t", pageUtil);
 		return publicDao.find(hql, param, pageUtil.getPage(), pageUtil.getRows());
@@ -52,7 +52,7 @@ public class SpuServiceImpl implements SpuService
 	*/
 	public List<Spu> findSpuNoPage(Map<String, Object> param,PageUtil pageUtil)
 	{
-		String hql="from Spu t ";
+		String hql="from Spu t where t.status='A'";
 		hql+=Constants.getSearchConditionsHQL("t", param);
 		hql+=Constants.getGradeSearchConditionsHQL("t", pageUtil);
 		return publicDao.find(hql, param);
@@ -60,15 +60,15 @@ public class SpuServiceImpl implements SpuService
 
 	public List<Sku> findSkuBySpu(Integer spuId)
 	{
-		String hql="from Sku t where t.spuId="+ spuId;
+		String hql="from Sku t where t.spuId="+ spuId + " and t.status='A'";
 		 return publicDao.find(hql);
 	}
 
 	public List<Sku> findSkuNoPage(Map<String, Object> param,PageUtil pageUtil)
 	{
-		String hql="from Sku s ";
+		String hql="from Sku s where s.status='A'";
 		hql+=Constants.getSearchConditionsHQL("s", param);
-		hql+=Constants.getGradeSearchConditionsHQL("t", pageUtil);
+		hql+=Constants.getGradeSearchConditionsHQL("s", pageUtil);
 		return publicDao.find(hql, param);
 	}
 
@@ -82,7 +82,7 @@ public class SpuServiceImpl implements SpuService
 	*/
 	public Long getCount(Map<String, Object> param,PageUtil pageUtil)
 	{
-		String hql="select count(*) from Spu t where 1=1 ";
+		String hql="select count(*) from Spu t where t.status='A'";
 		hql+=Constants.getSearchConditionsHQL("t", param);
 		hql+=Constants.getGradeSearchConditionsHQL("t", pageUtil);
 		return publicDao.count(hql, param);
@@ -128,7 +128,7 @@ public class SpuServiceImpl implements SpuService
 
 			for(String size : spu.getSize().split(",")){
 				Sku sku = new Sku(spu.getSpuId(),spu.getName()+colorname+size, spu.getMyid()+ "_" + colorSim + "_" + size, spu.getDistChName()+colorname+size, spu.getDistEnName(), colorname, size,
-						spu.getLatestCost(), spu.getWeight(), spu.getDeveloper(), spu.getEnquirer(), spu.getBuyer(),  userId, userId);
+						spu.getLatestCost(), spu.getWeight(), spu.getDeveloper(), spu.getEnquirer(), spu.getBuyer(), "A", userId, userId);
 				publicDao.save(sku);
 			}
 			i++;
@@ -149,11 +149,13 @@ public class SpuServiceImpl implements SpuService
 		Spu spu = (Spu)publicDao.get(Spu.class, spuId);
 		spu.setLastmod(new Date());
 		spu.setModifiyer(userId);
-		publicDao.delete(spu);
+		spu.setStatus(Constants.PERSISTENCE_DELETE_STATUS);
+		publicDao.deleteToUpdate(spu);
 		String hql="from Sku t where t.spuId="+spu.getSpuId();
 		List<Sku> list = publicDao.find(hql);
 		for(Sku sku : list){
-			publicDao.delete(sku);
+			sku.setStatus(Constants.PERSISTENCE_DELETE_STATUS);
+			publicDao.deleteToUpdate(sku);
 		}
 		return true;
 	}

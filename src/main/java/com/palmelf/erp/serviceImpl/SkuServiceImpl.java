@@ -67,7 +67,8 @@ public class SkuServiceImpl implements SkuService
 		Sku sku = (Sku)publicDao.get(Sku.class, skuId);
 		//sku.setLastmod(new Date());
 		sku.setModifiyer(userId);
-		publicDao.delete(sku);
+		sku.setStatus(Constants.PERSISTENCE_DELETE_STATUS);
+		publicDao.deleteToUpdate(sku);
 		return true;
 	}
 }
