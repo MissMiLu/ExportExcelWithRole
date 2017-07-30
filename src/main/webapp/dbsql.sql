@@ -299,6 +299,20 @@ CREATE TABLE `CUSTOMER` (
   PRIMARY KEY (`CUSTOMER_ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8 COMMENT='客户资料';
 
+DROP TABLE IF EXISTS `LUXUANCUSTOMER`;
+CREATE TABLE `LUXUANCUSTOMER` (
+  `CUSTOMER_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `BABY_NAME` varchar(50) DEFAULT NULL COMMENT '宝宝名字',
+  `PARENT_NAME` varchar(50) DEFAULT NULL COMMENT '父母名字',
+  `BABY_SEX` varchar(10) DEFAULT NULL COMMENT '宝宝性别',
+  `MYID` varchar(55) NOT NULL COMMENT '会员卡号',
+  `STATUS` char(1) NOT NULL DEFAULT 'A' COMMENT 'A:正常,I:删除',
+  `CREATER` int(10) DEFAULT NULL COMMENT '创建人',
+  `MODIFIYER` int(10) DEFAULT NULL COMMENT '修改人',
+  `MEMBER_POINTS` int(100) DEFAULT NULL COMMENT '会员积分',
+  PRIMARY KEY (`CUSTOMER_ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='客户资料';
+
 -- ----------------------------
 -- Records of CUSTOMER
 -- ----------------------------
@@ -1155,6 +1169,11 @@ INSERT INTO `PERMISSION` VALUES ('97', '96', '采购单新增', '采购单录入
 INSERT INTO `PERMISSION` VALUES ('98', '96', '采购单编辑', '采购单录入', '2', 'ordPurEdit', 'O', 'Y', 'open', 'javascript:void(0);', 'icon-ok', 'A', '', '2013-07-01 10:59:44', '2013-07-01 11:01:00', '1', '1');
 INSERT INTO `PERMISSION` VALUES ('99', '96', '采购单删除', '采购单录入', '3', 'ordPurDel', 'O', 'Y', 'open', 'javascript:void(0);', 'icon-remove', 'A', '', '2013-07-01 11:00:44', '2013-07-01 11:00:44', '1', '1');
 INSERT INTO `PERMISSION` VALUES ('100', '68', '客户订单录入', '客户管理', '3', 'cstOrderMgr', 'F', 'Y', 'closed', 'jsp/orderSale/orderSaleMain.jsp', 'icon-end', 'A', '', '2013-07-08 15:20:54', '2013-07-08 15:23:53', '1', '1');
+INSERT INTO `PERMISSION` VALUES ('105', null, '璐璇客户管理', '', '3', 'luxuanCstMgr', 'F', 'Y', 'closed', 'javascript:void(0);', 'icon-role', 'A', '', '2013-06-24 09:45:45', '2013-06-24 09:45:45', '1', '1');
+INSERT INTO `PERMISSION` VALUES ('106', '105', '璐璇客户档案录入', '璐璇客户管理', '1', 'luxuanCstMain', 'F', 'Y', 'closed', 'jsp/cstManager/luxuanCstMain.jsp', 'icon-edit', 'A', '123123123123', '2013-06-24 09:46:49', '2013-06-26 16:27:56', '1', '1');
+INSERT INTO `PERMISSION` VALUES ('107', '105', '璐璇客户新增', '璐璇客户管理', '1', 'luxuanCstAdd', 'O', 'Y', 'open', 'javascript:void(0);', 'icon-adds', 'A', '', '2013-06-26 12:20:09', '2013-06-26 12:20:09', '1', '1');
+INSERT INTO `PERMISSION` VALUES ('108', '105', '璐璇客户编辑', '璐璇客户管理', '2', 'luxuanCstEdit', 'O', 'Y', 'open', 'javascript:void(0);', 'icon-ok', 'A', '', '2013-06-26 12:20:46', '2013-06-26 12:21:22', '1', '1');
+INSERT INTO `PERMISSION` VALUES ('109', '105', '璐璇客户删除', '璐璇客户管理', '3', 'luxuanCstDel', 'O', 'Y', 'open', 'javascript:void(0);', 'icon-remove', 'A', '', '2013-06-26 12:22:05', '2013-06-26 12:22:05', '1', '1');
 
 -- ----------------------------
 -- Table structure for `PLAN_PURCHASE`
