@@ -29,13 +29,13 @@
     });
 
 
-    function addRows(){
+    function addSizeRows(){
         $cusSize.datagrid('appendRow', {});
         var rows = $cusSize.datagrid('getRows');
         $cusSize.datagrid('beginEdit', rows.length - 1);
     }
 
-    function endEdit(){
+    function endSizeEdit(){
         var flag=true;
         var rows = $cusSize.datagrid('getRows');
         for ( var i = 0; i < rows.length; i++) {
@@ -46,7 +46,7 @@
         return flag;
     }
 
-    function removeRows(){
+    function removeSizeRows(){
         var rows = $cusSize.datagrid('getSelections');
         $.each(rows,function(i,row){
             if (row) {
@@ -55,7 +55,7 @@
             }
         });
     }
-    function saveRows(){
+    function saveSizeRows(){
         var flag=true;
         var rows = $cusSize.datagrid('getRows');
         for ( var i = 0; i < rows.length; i++) {
@@ -141,10 +141,10 @@
 				<tr>
 					<td style="padding-left:2px">
 						<%--<shiro:hasPermission name="cstConEdit">--%>
-						<a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="addRows();">添加</a>
-						<a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-end" plain="true" onclick="endEdit();">结束编辑</a>
-						<a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="removeRows();">删除</a>
-							<a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-save" plain="true" onclick="saveRows();">保存</a>
+						<a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="addSizeRows();">添加</a>
+						<a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-end" plain="true" onclick="endSizeEdit();">结束编辑</a>
+						<a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="removeSizeRows();">删除</a>
+							<a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-save" plain="true" onclick="saveSizeRows();">保存</a>
 						<%--</shiro:hasPermission>--%>
 					</td>
 				</tr>

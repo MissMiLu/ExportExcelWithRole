@@ -11,6 +11,11 @@ import java.util.Map;
 
 public interface SkuService
 {
+	List<Sku> findSku(Map<String, Object> param, PageUtil pageUtil);
+
+	Long getCount(Map<String, Object> param, PageUtil pageUtil);
+
+	List<Sku> findSkuNoPage(Map<String, Object> param, PageUtil pageUtil);
 
 	boolean persistenceSku(Sku sku);
 

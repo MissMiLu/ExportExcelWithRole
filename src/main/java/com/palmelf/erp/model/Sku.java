@@ -30,6 +30,8 @@ public class Sku implements java.io.Serializable
 	private String enquirer;
 	private String buyer;
 	private String status;
+	private String supplier;
+	private String purchaseLink;
 	//private Date lastmod;
 	private Integer creater;
 	private Integer modifiyer;
@@ -47,7 +49,7 @@ public class Sku implements java.io.Serializable
 	}
 
 	public Sku(Integer spuid,String name, String myid, String distChName, String distEnName, String color, String size,
-               Double latestCost, Double weight, String developer, String enquirer, String buyer, String status, Integer creater, Integer modifiyer) {
+               Double latestCost, Double weight, String developer, String enquirer, String buyer, String status,String supplier,String purchaseLink, Integer creater, Integer modifiyer) {
 		this.spuId = spuid;
 		this.name = name;
 		this.myid = myid;
@@ -63,6 +65,8 @@ public class Sku implements java.io.Serializable
 		this.status = status;
 		//this.created = created;
 		//this.lastmod = lastmod;
+		this.supplier = supplier;
+		this.purchaseLink = purchaseLink;
 		this.creater = creater;
 		this.modifiyer = modifiyer;
 	}
@@ -186,26 +190,6 @@ public class Sku implements java.io.Serializable
 		this.buyer = buyer;
 	}
 
-//	@Temporal(TemporalType.TIMESTAMP)
-//	@Column(name = "CREATED")
-//	public Date getCreated() {
-//		return created;
-//	}
-//
-//	public void setCreated(Date created) {
-//		this.created = created;
-//	}
-//
-//	@Temporal(TemporalType.TIMESTAMP)
-//	@Column(name = "LASTMOD")
-//	public Date getLastmod() {
-//		return lastmod;
-//	}
-//
-//	public void setLastmod(Date lastmod) {
-//		this.lastmod = lastmod;
-//	}
-
 	@Column(name = "CREATER")
 	public Integer getCreater() {
 		return creater;
@@ -232,4 +216,14 @@ public class Sku implements java.io.Serializable
 	public void setStatus(String status) {
 		this.status = status;
 	}
+
+	@Column(name = "SUPPLIER")
+	public String getSupplier() {return supplier; }
+
+	public void setSupplier(String supplier) { this.supplier = supplier; }
+
+	@Column(name = "PURCHASELINK")
+	public  String getPurchaseLink() { return purchaseLink; }
+
+	public void setPurchaseLink(String purchaseLink) { this.purchaseLink = purchaseLink; }
 }

@@ -31,7 +31,8 @@ public class Spu implements java.io.Serializable
 	private String enquirer;
 	private String buyer;
 	private String status;
-
+	private String supplier;
+	private String purchaseLink;
 	private Date lastmod;
 	private Integer creater;
 	private Integer modifiyer;
@@ -50,7 +51,9 @@ public class Spu implements java.io.Serializable
 		this.myid = myid;
 	}
 
-	public Spu(Integer spuId, String name, String myid, String distChName, String distEnName, String colors, String size, Double latestCost, Double weight, String developer, String enquirer, String buyer, String status, Date lastmod, Integer creater, Integer modifiyer, String shortColors) {
+	public Spu(Integer spuId, String name, String myid, String distChName, String distEnName, String colors, String size,
+			   Double latestCost, Double weight, String developer, String enquirer, String buyer, String status,String supplier,
+			   String purchaseLink, Date lastmod, Integer creater, Integer modifiyer, String shortColors) {
 		this.spuId = spuId;
 		this.name = name;
 		this.myid = myid;
@@ -67,6 +70,8 @@ public class Spu implements java.io.Serializable
 		this.creater = creater;
 		this.modifiyer = modifiyer;
 		this.status = status;
+		this.supplier = supplier;
+		this.purchaseLink = purchaseLink;
 		this.shortColors = shortColors;
 	}
 
@@ -226,4 +231,14 @@ public class Spu implements java.io.Serializable
 	public void setStatus(String status) {
 		this.status = status;
 	}
+
+	@Column(name = "SUPPLIER")
+	public String getSupplier() {return supplier; }
+
+	public void setSupplier(String supplier) { this.supplier = supplier; }
+
+	@Column(name = "PURCHASELINK")
+	public  String getPurchaseLink() { return purchaseLink; }
+
+	public void setPurchaseLink(String purchaseLink) { this.purchaseLink = purchaseLink; }
 }

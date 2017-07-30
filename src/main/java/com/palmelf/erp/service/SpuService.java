@@ -17,7 +17,7 @@ import java.util.Map;
 public interface SpuService
 {
 
-	List<Spu> findSpu(Map<String, Object> param, PageUtil pageUtil);
+	List<Sku> findSpu(Map<String, Object> param, PageUtil pageUtil);
 
 	Long getCount(Map<String, Object> param, PageUtil pageUtil);
 

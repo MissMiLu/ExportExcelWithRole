@@ -45,44 +45,46 @@
 			}
 		});
 	});
-	function endEdit(){
-		var flag=true;
-		var rows = $dg.datagrid('getRows');
-		for ( var i = 0; i < rows.length; i++) {
-			$dg.datagrid('endEdit', i);
-			var temp=$dg.datagrid('validateRow', i);
-			if(!temp){flag=false;}
-		}
-		return flag;
-	}
+    $colorSizeWeightCostList = $("#colorSizeWeightCostList");
+    $colorSizeWeightCostListGrid=$colorSizeWeightCostList.datagrid({
+        url : '',
+        width : 'auto',
+        height : $(this).height()-380,
+        border:false,
+        fit:true,
+        singleSelect:true,
+        columns : [ [
+            {field : 'weight',title : '重量',width : 75,align : 'left'},
+            {field : 'cost',title : '价格',width : 75,align : 'left'},
+            {field : 'simplified',title : '颜色简称',width : 75,align : 'left'},
+            {field : 'name',title : '颜色',width : 75,align : 'left'},
+            {field : 'size',title : '尺寸',width : 75,align : 'left'}
+        ] ]
+    });
 	//弹窗增加区域
 	function selectColorDlg() {
 		$("<div/>").dialog({
 			href : "jsp/skuManager/colorEditDlg.jsp",
-			width : 800,
-			height : 650,
+			width : 1200,
+			height : 700,
+			title: '颜色&尺码&重量&价格',
 			modal : true,
+            resizable: true,
+            maximizable:true,
 			buttons : [{
-				text : '选择',
+				text : '保存',
 				iconCls : 'icon-ok',
 				handler : function() {
-                    var row = $('#colorDlg').datagrid('getSelections');
-                    var i = 0;
-                    var colors = "";
-                    var shortColors = "";
-                    for(i;i<row.length;i++){
-                        colors += row[i].name;
-                        shortColors += row[i].simplified;
-                        if(i < row.length-1){
-                            colors += ',';
-                            shortColors += ',';
-                        }else{
-                            break;
-                        }
+                    var colorSizeWeightCostRows = $('#colorSizeWeightCost').datagrid('getRows');
+                    var colorSizeWeightCostArray = [];
+                    for ( var i = 0; i < colorSizeWeightCostRows.length; i++) {
+                        $colorSizeWeightCostList.datagrid('appendRow', colorSizeWeightCostRows[i]);
+                        var colorSizeWeightCostRowJson = 'weight:'+ colorSizeWeightCostRows[i].weight + "," + "cost:"+ colorSizeWeightCostRows[i].cost + ","
+						+"simplified:"+colorSizeWeightCostRows[i].simplified + "," + "color:"+ colorSizeWeightCostRows[i].name + "," + "size:" + colorSizeWeightCostRows[i].size;
+                        colorSizeWeightCostArray.push(colorSizeWeightCostRowJson);
                     }
-
-                    $('#shortColors').attr("value",shortColors);
-					$('#colors').attr("value",colors);
+                    var colorSizeWeightCostString = colorSizeWeightCostArray.join(";");
+                    $("#colors").val(colorSizeWeightCostString);
                     $(this).closest('.window-body').dialog('destroy');
                 }
 			},{
@@ -97,42 +99,6 @@
 			}
 		});
 	}
-    function editSizeDlg() {
-        $("<div/>").dialog({
-            href : "jsp/skuManager/sizeEditDlg.jsp",
-            width : 600,
-            height : 500,
-            modal : true,
-            buttons : [ {
-                text : '选择',
-                iconCls : 'icon-ok',
-                handler : function() {
-                    var row = $('#sizeDlg').datagrid('getSelections');
-                    var i = 0;
-                    var sizes = "";
-                    for(i;i<row.length;i++){
-                        sizes += row[i].value;
-                        if(i < row.length-1){
-                            sizes += ',';
-                        }else{
-                            break;
-                        }
-                    }
-                    $('#size').attr("value",sizes);
-                    $(this).closest('.window-body').dialog('destroy');
-                }
-            },{
-                text : '取消',
-                iconCls : 'icon-cancel',
-                handler : function() {
-                    $(this).closest('.window-body').dialog('destroy');
-                }
-            }],
-            onClose : function() {
-                $(this).dialog('destroy');
-            }
-        });
-    }
 </script>
 <style>
 	.easyui-textbox{
@@ -208,7 +174,6 @@
 							<input name="inserted" id="inserted"  type="hidden"/>
 							<input name="updated" id="updated"  type="hidden"/>
 							<input name="deleted" id="deleted"  type="hidden"/>
-							<input name="shortColors" id="shortColors"  type="hidden"/>
 							 <table class="table">
 								 <tr>
 								    <th>商品名称</th>
@@ -219,27 +184,29 @@
 									<td><input name="distChName" id="distChName" type="text" class="easyui-textbox easyui-validatebox" /></td>
 								 </tr>
 								 <tr>
-									<th>英文配货名称</th>
-									<td><input id="distEnName" name="distEnName" type="text" class="easyui-textbox easyui-validatebox" /></td>
-								    <th>重量</th>
-									<td><input name="weight" id="weight" type="text" class="easyui-textbox easyui-validatebox" /></td>
-								    <th>最新报价</th>
-									<td><input id="latestCost" name="latestCost" type="text" class="easyui-textbox easyui-validatebox" /></td>
-								 </tr>
-								  <tr>
-									<th>颜色列表</th>
-									<td><input id="colors" name="colors" type="text" class="easyui-textbox easyui-validatebox"/><img src="../../extend/area.png" style="margin-left:2px;margin-bottom: -5px;cursor: pointer;" onclick="selectColorDlg();"/></td>
-									<th>尺码列表</th>
-									<td><input id="size" name="size" type="text" class="easyui-textbox easyui-validatebox"/><img src="../../extend/area.png" style="margin-left:2px;margin-bottom: -5px;cursor: pointer;" onclick="editSizeDlg();"/></td>
 									 <th>业务开发员</th>
-									<td><input id="developer" name="developer" type="text" class="easyui-textbox easyui-validatebox"/></td>
-								 </tr>
-								 <tr>
+									 <td><input id="developer" name="developer" type="text" class="easyui-textbox easyui-validatebox"/></td>
 									 <th>询价员</th>
 									 <td><input id="enquirer" name="enquirer" type="text" class="easyui-textbox easyui-validatebox"/></td>
 									 <th>采购员</th>
 									 <td><input id="buyer" name="buyer" type="text" class="easyui-textbox easyui-validatebox"/></td>
 								 </tr>
+								 <tr>
+									 <th>英文配货名称</th>
+									 <td><input id="distEnName" name="distEnName" type="text" class="easyui-textbox easyui-validatebox" /></td>
+									 <th>颜色尺寸</th>
+									 <td><input id="colors" name="colors" type="hidden" class="easyui-textbox easyui-validatebox"/><img src="../../extend/area.png" style="margin-left:2px;margin-bottom: -5px;cursor: pointer;" onclick="selectColorDlg();"/></td>
+								 </tr>
+								 <tr>
+									 <th>供应商</th>
+									 <td colspan="3"><textarea class="easyui-textbox" id="supplier" name="supplier" style="width: 510px;height: 60px;"></textarea></td>
+								 </tr>
+								 <tr>
+									 <th>采购链接</th>
+									 <td colspan="3"><textarea class="easyui-textbox" id="purchaseLink" name="purchaseLink" style="width: 510px;height: 60px;"></textarea></td>
+								 </tr>
+								 <table id="colorSizeWeightCostList" style="width: auto">
+								 </table>
 							   </table>
 						</fieldset>
 				</div>

@@ -27,7 +27,29 @@ public class SkuServiceImpl implements SkuService
 		this.publicDao = publicDao;
 	}
 
+	public List<Sku> findSku(Map<String, Object> param, PageUtil pageUtil)
+	{
+		String hql="from Sku t where t.status='A'";
+		hql+=Constants.getSearchConditionsHQL("t", param);
+		hql+=Constants.getGradeSearchConditionsHQL("t", pageUtil);
+		return publicDao.find(hql, param, pageUtil.getPage(), pageUtil.getRows());
+	}
 
+	public List<Sku> findSkuNoPage(Map<String, Object> param,PageUtil pageUtil)
+	{
+		String hql="from Sku s where s.status='A'";
+		hql+=Constants.getSearchConditionsHQL("s", param);
+		hql+=Constants.getGradeSearchConditionsHQL("s", pageUtil);
+		return publicDao.find(hql, param);
+	}
+
+	public Long getCount(Map<String, Object> param,PageUtil pageUtil)
+	{
+		String hql="select count(*) from Sku t where t.status='A'";
+		hql+=Constants.getSearchConditionsHQL("t", param);
+		hql+=Constants.getGradeSearchConditionsHQL("t", pageUtil);
+		return publicDao.count(hql, param);
+	}
 	/* (非 Javadoc)
 	* <p>Title: persistenceCustomer</p>
 	* <p>Description:持久化Customer和持久化关联的 CustomerContact</p>
@@ -41,13 +63,10 @@ public class SkuServiceImpl implements SkuService
 		Integer userId=Constants.getCurrendUser().getUserId();
 		if (sku.getSkuId()==null||"".equals(sku.getSkuId()))
 		{
-			//spu.setCreated(new Date());
-			//sku.setLastmod(new Date());
 			sku.setCreater(userId);
 			sku.setModifiyer(userId);
 			publicDao.save(sku);
 		}else {
-			//sku.setLastmod(new Date());
 			sku.setModifiyer(userId);
 			publicDao.update(sku);
 		}
@@ -65,7 +84,6 @@ public class SkuServiceImpl implements SkuService
 	{
 		Integer userId = Constants.getCurrendUser().getUserId();
 		Sku sku = (Sku)publicDao.get(Sku.class, skuId);
-		//sku.setLastmod(new Date());
 		sku.setModifiyer(userId);
 		sku.setStatus(Constants.PERSISTENCE_DELETE_STATUS);
 		publicDao.deleteToUpdate(sku);

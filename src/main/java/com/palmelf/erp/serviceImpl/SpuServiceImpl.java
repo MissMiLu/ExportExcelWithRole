@@ -1,15 +1,16 @@
 package com.palmelf.erp.serviceImpl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.palmelf.erp.dao.PublicDao;
 import com.palmelf.erp.model.*;
 import com.palmelf.erp.service.SpuService;
 import com.palmelf.erp.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+
+import java.util.*;
+
+import com.alibaba.fastjson.JSON;
 
 @SuppressWarnings("unchecked")
 @Service("spuService")
@@ -34,9 +35,9 @@ public class SpuServiceImpl implements SpuService
 	* @return
 	* @see com.palmelf.erp.service.CstService#findCustomerList(java.util.Map, com.palmelf.erp.util.PageUtil)
 	*/
-	public List<Spu> findSpu(Map<String, Object> param, PageUtil pageUtil)
+	public List<Sku> findSpu(Map<String, Object> param, PageUtil pageUtil)
 	{
-		String hql="from Spu t where t.status='A'";
+		String hql="from Sku t where t.status='A'";
 		hql+=Constants.getSearchConditionsHQL("t", param);
 		hql+=Constants.getGradeSearchConditionsHQL("t", pageUtil);
 		return publicDao.find(hql, param, pageUtil.getPage(), pageUtil.getRows());
@@ -99,50 +100,38 @@ public class SpuServiceImpl implements SpuService
 	public boolean persistenceSpu(Spu spu)
 	{
 		Integer userId=Constants.getCurrendUser().getUserId();
-		if (spu.getSpuId()==null||"".equals(spu.getSpuId()))
-		{
-			//spu.setCreated(new Date());
-			spu.setLastmod(new Date());
-			spu.setCreater(userId);
-			spu.setModifiyer(userId);
-			publicDao.save(spu);
-
-		}else {
-			spu.setLastmod(new Date());
-			spu.setModifiyer(userId);
-			publicDao.update(spu);
-			String hql="from Sku t where t.spuId="+spu.getSpuId();
-			List<Sku> list = publicDao.find(hql);
-			for(Sku sku : list){
-				//sku.setLastmod(new Date());
-				sku.setModifiyer(userId);
-				publicDao.delete(sku);
-			}
-		}
-		String[] short_colors = spu.getShortColors().split(",");
-
+		String[] weightSizeList = spu.getColors().split(";");
 		int i = 0;
-		for (String colorname : spu.getColors().split(",")){
-
-			String colorSim = short_colors[i];
-
-			for(String size : spu.getSize().split(",")){
-				Sku sku = new Sku(spu.getSpuId(),spu.getName()+colorname+size, spu.getMyid()+ "_" + colorSim + "_" + size, spu.getDistChName()+colorname+size, spu.getDistEnName(), colorname, size,
-						spu.getLatestCost(), spu.getWeight(), spu.getDeveloper(), spu.getEnquirer(), spu.getBuyer(), "A", userId, userId);
-				publicDao.save(sku);
-			}
-			i++;
+		for (String weightSize : weightSizeList){
+			Map<String, String> items = this.parseWeightSize(weightSize);
+			String colorSims = items.get("simplified");
+			String color = items.get("color");
+			String size = items.get("size");
+			Sku sku = new Sku(1,spu.getName(), spu.getMyid()+ "_" + colorSims + "_" + size,
+					spu.getDistChName()+ " " +color+ " " + size, spu.getDistEnName(), color, size,
+					Double.parseDouble(items.get("cost")), Double.parseDouble(items.get("weight")), spu.getDeveloper(),
+					spu.getEnquirer(), spu.getBuyer(), "A",spu.getSupplier(),spu.getPurchaseLink(), userId, userId);
+			publicDao.save(sku);
 		}
 		return true;
 	}
 
+	public Map<String, String> parseWeightSize(String weightSize) {
+		Map<String, String> weightSizeMap = new HashMap<String, String>();
+		String[] weightSizeSplit = weightSize.split(",");
+		for(String item : weightSizeSplit){
+         weightSizeMap.put(item.substring(0,item.indexOf(":")),item.substring(item.indexOf(":")+1));
+		}
+		return weightSizeMap;
+	}
+
 	/* (非 Javadoc)
-	* <p>Title: delCustomer</p>
-	* <p>Description: 删除客户以及关联联系人</p>
-	* @param customerId
-	* @return
-	* @see com.palmelf.erp.service.CstService#delCustomer(java.lang.Integer)
-	*/
+        * <p>Title: delCustomer</p>
+        * <p>Description: 删除客户以及关联联系人</p>
+        * @param customerId
+        * @return
+        * @see com.palmelf.erp.service.CstService#delCustomer(java.lang.Integer)
+        */
 	public boolean delSpu(Integer spuId)
 	{
 		Integer userId = Constants.getCurrendUser().getUserId();

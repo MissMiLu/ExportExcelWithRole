@@ -26,6 +26,7 @@
 	<script type="text/javascript" src="js/FusionCharts/FusionCharts.js"></script>
 	<script type="text/javascript" src="js/FusionCharts/FusionCharts.jqueryplugin.js"></script>
 	<script type="text/javascript" src="js/FusionCharts/FusionChartsExportComponent.js"></script>
+    <script type="text/javascript" src="js/erp.main.js"></script>
 	<script type="text/javascript">
 		$(function(){
 				
